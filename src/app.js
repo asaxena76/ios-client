@@ -12,11 +12,15 @@ var {
   View,
 } = React;
 
+var User = require("./domain/User");
+var Login = require("./components/Login");
+var Avatar = require("./components/Avatar");
+
+// var Relay = require("react-relay");
+
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -33,20 +37,58 @@ var styles = StyleSheet.create({
 
 
 module.exports = React.createClass({
+
+  getInitialState: function() {
+    return {
+      hasLogin: !!User.getToken()
+    };
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        { this.renderContent() }
       </View>
+    );
+  },
+
+  renderContent: function() {
+    if(this.state.hasLogin) {
+      return this.renderAvatar();
+    }
+
+    return this.renderLogin();
+  },
+
+  renderLogin: function() {
+    return (
+      <Login onLogin={ this.handleLogin } />
+    );
+  },
+
+  handleLogin: function() {
+    this.setState({
+      hasLogin: true
+    });
+  },
+
+  renderAvatar: function() {
+    var user = User.getActiveUser();
+
+    return (
+      <Avatar user={ User.getActiveUser() } />
     );
   }
 });
+
+// module.exports =  Relay.createContainer(App, {
+
+//   fragments: {
+//     user: () => Relay.QL`
+//       fragment on User {
+//         firstName
+//       }
+//     `
+//   }
+
+// });
