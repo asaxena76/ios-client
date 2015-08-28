@@ -14,7 +14,8 @@ module.exports = React.createClass({
             lastName: React.PropTypes.string.isRequired,
 
             color: React.PropTypes.string
-        })
+        }),
+        token: React.PropTypes.string.isRequired
     },
 
     render: function() {
@@ -33,7 +34,7 @@ module.exports = React.createClass({
         return (
             <Image
                 style={{ width: 42, height: 42 }}
-                source={{ uri: `http://localhost:8080/api/v1/effektif/users/${this.props.user.id}/picture?token=${User.getToken()}` }} />
+                source={{ uri: `http://localhost:8080/api/v1/effektif/users/${this.props.user.id}/picture?token=${this.props.token}` }} />
         );
     }
 
