@@ -18,7 +18,7 @@ var Login = require("./components/Login");
 var Avatar = require("./components/Avatar");
 var Navigator = require("./components/Navigator");
 
-// var Relay = require("react-relay");
+var Relay = require("react-relay");
 
 var styles = StyleSheet.create({
   container: {
@@ -39,6 +39,8 @@ var styles = StyleSheet.create({
 
 
 module.exports = React.createClass({
+
+  displayName: "App",
 
   getInitialState() {
     return {
@@ -89,7 +91,7 @@ module.exports = React.createClass({
 
   renderAvatar() {
     return (
-      <Navigator onLogout={ this.handleLogout } />
+      <Navigator onLogout={ this.handleLogout } user={ this.state.user } token={ this.state.token } />
     );
   },
 
@@ -111,11 +113,7 @@ module.exports = React.createClass({
 // module.exports =  Relay.createContainer(App, {
 
 //   fragments: {
-//     user: () => Relay.QL`
-//       fragment on User {
-//         firstName
-//       }
-//     `
+
 //   }
 
 // });

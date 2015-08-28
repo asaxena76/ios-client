@@ -12,6 +12,8 @@ var {
   View
 } = React;
 
+var request = require("superagent");
+
 var MOCKED_TASK_DATA = [
   {
     assigneeId: '55ded6d3e4b056adca2f3a83',
@@ -43,29 +45,43 @@ var MOCKED_TASK_DATA = [
 
 var PAGE_SIZE = 25;
 
+var Task = require("./Task");
+
+var ds =  new ListView.DataSource({
+  rowHasChanged: (row1, row2) => row1 !== row2
+});
+
 module.exports = React.createClass({
 
   displayName: 'Tasks',
 
   getInitialState: function() {
     return {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2
-      }),
+      dataSource: ds.cloneWithRows(MOCKED_TASK_DATA),
       loaded: false
     };
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     this.fetchData();
   },
 
   fetchData: function() {
-    return MOCKED_TASK_DATA;
+    request
+      .get("http://localhost:8080/api/v1/effektif/tasks")
+      .set("Authorization", this.props.token)
+      .end((error, response) => {
+        console.log(error, response);
+        this.setState({
+          dataSource: ds.cloneWithRows(response.body),
+          loaded: true
+        });
+      });
+
+    // return MOCKED_TASK_DATA;
   },
 
   render: function() {
-
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
@@ -90,36 +106,16 @@ module.exports = React.createClass({
   },
 
   renderTask: function(task) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.checkBoxContainer}>
-          <Text style={styles.avatarInitials}>TR</Text>
-        </View>
-        <View style={styles.avatarContainer}>
-          <Text style={styles.avatarInitials}>TR</Text>
-        </View>
-        <View style={styles.taskNameContainer}>
-          <Text style={styles.title}>{task.name}</Text>
-          <Text style={styles.subtitle}>{task.caze.name}</Text>
-        </View>
-      </View>
-    );
+    return <Task { ...task } />
   }
 });
 
-
-
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: 42,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    marginHorizontal: 10,
-    marginBottom: 10
+  listView: {
+    paddingTop: 20,
+    backgroundColor: 'white'
   },
+
   loadingContainer: {
     flex: 1,
     height: 42,
@@ -129,37 +125,5 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 50
   },
-  checkBoxContainer: {
-    backgroundColor: '#9cc8ca',
-    height: 42,
-    width: 42
-  },
-  avatarContainer: {
-    backgroundColor: '#d960b4',
-    height: 42,
-    width: 42
-  },
-  avatarInitials: {
-    fontSize: 24,
-    color: 'white',
-    textAlign: 'center',
-    'justifyContent': 'center'
-  },
-  taskNameContainer: {
-    flex: 1,
-    marginHorizontal: 10
-  },
-  title: {
-    fontSize: 16,
-    overflow: 'hidden',
-    color: '#128187'
-  },
-  subtitle: {
-    fontSize: 12,
-    color: '#989898'
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: 'white'
-  }
-});
+})
+
