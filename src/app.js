@@ -15,23 +15,24 @@ var {
 var User = require("./domain/User");
 var Login = require("./components/Login");
 var Avatar = require("./components/Avatar");
+var Tasks = require("./components/Tasks");
 
 // var Relay = require("react-relay");
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginBottom: 5
   },
 });
 
@@ -40,7 +41,8 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      hasLogin: !!User.getToken()
+      // hasLogin: !!User.getToken()
+      hasLogin: true
     };
   },
 
@@ -76,7 +78,9 @@ module.exports = React.createClass({
     var user = User.getActiveUser();
 
     return (
-      <Avatar user={ User.getActiveUser() } />
+      <View>
+        <Tasks/>
+      </View>
     );
   }
 });

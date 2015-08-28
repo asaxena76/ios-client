@@ -41,11 +41,72 @@ var MOCKED_TASK_DATA = [
   }
 ];
 
-var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
-var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json';
 var PAGE_SIZE = 25;
-var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
-var REQUEST_URL = API_URL + PARAMS;
+
+module.exports = React.createClass({
+
+  displayName: 'Tasks',
+
+  getInitialState: function() {
+    return {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2
+      }),
+      loaded: false
+    };
+  },
+
+  componentDidMount: function() {
+    this.fetchData();
+  },
+
+  fetchData: function() {
+    return MOCKED_TASK_DATA;
+  },
+
+  render: function() {
+
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderTask}
+        style={styles.listView}
+      />
+    );
+  },
+
+  renderLoadingView: function() {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>
+          Loading Effektif...
+        </Text>
+      </View>
+    );
+  },
+
+  renderTask: function(task) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.checkBoxContainer}>
+          <Text style={styles.avatarInitials}>TR</Text>
+        </View>
+        <View style={styles.avatarContainer}>
+          <Text style={styles.avatarInitials}>TR</Text>
+        </View>
+        <View style={styles.taskNameContainer}>
+          <Text style={styles.title}>{task.name}</Text>
+          <Text style={styles.subtitle}>{task.caze.name}</Text>
+        </View>
+      </View>
+    );
+  }
+});
+
 
 
 var styles = StyleSheet.create({
@@ -55,9 +116,18 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: 'white',
     marginHorizontal: 10,
     marginBottom: 10
+  },
+  loadingContainer: {
+    flex: 1,
+    height: 42,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginTop: 50
   },
   checkBoxContainer: {
     backgroundColor: '#9cc8ca',
@@ -88,80 +158,8 @@ var styles = StyleSheet.create({
     fontSize: 12,
     color: '#989898'
   },
-  thumbnail: {
-    width: 53,
-    height: 81
-  },
   listView: {
     paddingTop: 20,
     backgroundColor: 'white'
-  }
-});
-
-module.exports =  React.createClass({
-  getInitialState: function() {
-    return {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2
-      }),
-      loaded: false
-    };
-  },
-
-  componentDidMount: function() {
-    this.fetchData();
-  },
-
-  fetchData: function() {
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(MOCKED_TASK_DATA),
-          loaded: true
-        });
-      })
-      .done();
-  },
-
-  render: function() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
-    return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderTask}
-        style={styles.listView}
-      />
-    );
-  },
-
-  renderLoadingView: function() {
-    return (
-      <View style={styles.container}>
-        <Text>
-          Loading Effektif...
-        </Text>
-      </View>
-    );
-  },
-
-  renderTask: function(task) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.checkBoxContainer}>
-          <Text style={styles.avatarInitials}>TR</Text>
-        </View>
-        <View style={styles.avatarContainer}>
-          <Text style={styles.avatarInitials}>TR</Text>
-        </View>
-        <View style={styles.taskNameContainer}>
-          <Text style={styles.title}>{task.name}</Text>
-          <Text style={styles.subtitle}>{task.caze.name}</Text>
-        </View>
-      </View>
-    );
   }
 });
