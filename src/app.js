@@ -10,12 +10,13 @@ var {
   StyleSheet,
   Text,
   View,
+  AsyncStorage
 } = React;
 
 var User = require("./domain/User");
 var Login = require("./components/Login");
 var Avatar = require("./components/Avatar");
-var Tasks = require("./components/Tasks");
+var Navigator = require("./components/Navigator");
 
 // var Relay = require("react-relay");
 
@@ -39,14 +40,28 @@ var styles = StyleSheet.create({
 
 module.exports = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     return {
-      // hasLogin: !!User.getToken()
-      hasLogin: true
+      user: null,
+      token: null
     };
   },
 
-  render: function() {
+  componentDidMount: function() {
+    this.loadInitialState().done();
+  },
+
+  async loadInitialState() {
+    var user = await AsyncStorage.getItem("user");
+    var token = await AsyncStorage.getItem("token");
+
+    this.setState({
+      user: JSON.parse(user),
+      token: token
+    });
+  },
+
+  render() {
     return (
       <View style={styles.container}>
         { this.renderContent() }
@@ -54,34 +69,42 @@ module.exports = React.createClass({
     );
   },
 
-  renderContent: function() {
-    if(this.state.hasLogin) {
+  renderContent() {
+    if(this.state.user) {
       return this.renderAvatar();
     }
 
     return this.renderLogin();
   },
 
-  renderLogin: function() {
+  renderLogin() {
     return (
       <Login onLogin={ this.handleLogin } />
     );
   },
 
-  handleLogin: function() {
+  handleLogin() {
+    this.loadInitialState().done();
+  },
+
+  renderAvatar() {
+    return (
+      <Navigator onLogout={ this.handleLogout } />
+    );
+  },
+
+  async resetStorage() {
+    await AsyncStorage.setItem("user", "");
+    await AsyncStorage.setItem("token", "");
+
     this.setState({
-      hasLogin: true
+      user: null,
+      token: null
     });
   },
 
-  renderAvatar: function() {
-    var user = User.getActiveUser();
-
-    return (
-      <View>
-        <Tasks/>
-      </View>
-    );
+  handleLogout() {
+    this.resetStorage().done();
   }
 });
 
