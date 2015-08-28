@@ -15,7 +15,7 @@ var {
 
 var User = require("./domain/User");
 var Login = require("./components/Login");
-var Avatar = require("./components/Avatar");
+var Navigator = require("./components/Navigator");
 
 // var Relay = require("react-relay");
 
@@ -88,8 +88,23 @@ module.exports = React.createClass({
 
   renderAvatar() {
     return (
-      <Avatar user={ this.state.user } token={ this.state.token } />
+      <Navigator onLogout={ this.handleLogout } />
     );
+  },
+
+  async resetStorage() {
+    await AsyncStorage.setItem("user", "");
+    await AsyncStorage.setItem("token", "");
+
+    this.setState({
+      user: null,
+      token: null
+    });
+  },
+
+  handleLogout() {
+    console.log("foooo");
+    this.resetStorage().done();
   }
 });
 
