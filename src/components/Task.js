@@ -1,6 +1,6 @@
 var React = require("react-native");
 
-var { View, StyleSheet, Text } = React;
+var { View, StyleSheet, Text, TouchableHighlight } = React;
 
 var Avatar = require("./Avatar");
 
@@ -13,7 +13,7 @@ var request = require("superagent");
 // };
 // var Icon = createIconSet(glyphMap, 'effekticon');
 
-var { Icon, } = require('react-native-icons');
+var { Icon } = require('react-native-icons');
 
 module.exports = React.createClass({
 
@@ -25,7 +25,8 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            assignee: null
+            assignee: null,
+            completed: this.props.completed
         };
     },
 
@@ -53,25 +54,64 @@ module.exports = React.createClass({
             { this.renderAvatar() }
 
             <View style={styles.taskNameContainer}>
-              <Text style={styles.title}>{this.props.name}</Text>
+              { this.renderTitle() }
               <Text style={styles.subtitle}>{this.props.case.name}</Text>
             </View>
           </View>
         );
     },
 
+    renderTitle: function() {
+        // if(this.state.completed) {
+
+        // }
+
+        return <Text style={styles.title}>{this.props.name}</Text>;
+    },
+
     renderCheckbox: function() {
-        var icon = this.props.completed ? "check-square-o" : "square-o"
+        var icon = this.state.completed ? "check-square-o" : "square-o"
 
         return (
-            <View style={styles.checkBoxContainer}>
+            <TouchableHighlight
+                underlayColor="#9cc8ca"
+                style={styles.checkBoxContainer}
+                onPress={this.onPressCheckBox}>
                 <Icon
                     style={{ width: 42, height: 42 }}
                     name={ `fontawesome|${icon}` }
                     size={ 15 }
                     color="#fff" />
-            </View>
+            </TouchableHighlight>
         );
+    },
+
+    onPressCheckBox: function () {
+        if(!this.state.completed) {
+
+            request
+                .post(`http://localhost:8080/api/v1/effektif/tasks/${this.props.id}/complete`)
+                .set("Authorization", this.context.token)
+                .end((error, response) => {
+                    console.log(error, response);
+
+                    this.setState({
+                        completed: true
+                    });
+                });
+        } else {
+
+            request
+                .post(`http://localhost:8080/api/v1/effektif/tasks/${this.props.id}/reopen`)
+                .set("Authorization", this.context.token)
+                .end((error, response) => {
+                    console.log(error, response);
+
+                    this.setState({
+                        completed: false
+                    });
+                });
+        }
     },
 
     renderAvatar: function() {

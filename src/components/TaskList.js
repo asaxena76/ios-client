@@ -14,35 +14,6 @@ var {
 
 var request = require("superagent");
 
-var MOCKED_TASK_DATA = [
-  {
-    assigneeId: '55ded6d3e4b056adca2f3a83',
-    candidateIds: [],
-    caze: {id: '55ded6b0e4b056adca2f3a62', name: 'Code Camp 2015'},
-    cazeId: '55ded6b0e4b056adca2f3a62',
-    createdBy: '537f6807e4b011fbfef4e614',
-    id: '55ded6c4e4b056adca2f3a7b',
-    lastUpdated: '2015-08-27T09:22:12.253Z',
-    name: 'Call Micheal',
-    organizationId: '537f6807e4b011fbfef4e60b',
-    parentId: '55ded6b0e4b056adca2f3a62',
-    participantIds: ['537f6807e4b011fbfef4e614', '55ded6d3e4b056adca2f3a83']
-  },
-  {
-    assigneeId: '55ded6d3e4b056adca2f3a83',
-    candidateIds: [],
-    caze: {id: '55ded6b0e4b056adca2f3a62', name: 'Code Camp 2015'},
-    cazeId: '55ded6b0e4b056adca2f3a62',
-    createdBy: '537f6807e4b011fbfef4e614',
-    id: '55ded6c4e4b056adca2f3a7b',
-    lastUpdated: '2015-08-27T09:22:12.253Z',
-    name: 'Check Finance',
-    organizationId: '537f6807e4b011fbfef4e60b',
-    parentId: '55ded6b0e4b056adca2f3a62',
-    participantIds: ['537f6807e4b011fbfef4e614', '55ded6d3e4b056adca2f3a83']
-  }
-];
-
 var PAGE_SIZE = 25;
 
 var Task = require("./Task");
@@ -57,7 +28,7 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      dataSource: ds.cloneWithRows(MOCKED_TASK_DATA),
+      dataSource: null,
       loaded: false
     };
   },

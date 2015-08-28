@@ -25,7 +25,7 @@ module.exports = React.createClass({
                 titleTextColor="#fff"
                 initialRoute={{
                     component: TaskList,
-                    passProps: { user: this.props.user, token: this.props.token },
+                    passProps: { ...this.props },
                     title: "Tasks",
                     rightButtonTitle: "Logout",
                     onRightButtonPress: () => {

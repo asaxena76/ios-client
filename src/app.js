@@ -63,6 +63,14 @@ module.exports = React.createClass({
     });
   },
 
+  // render() {
+  //   return (
+  //     <View style={styles.container}>
+  //       { this.renderContent() }
+  //     </View>
+  //   );
+  // },
+
   render() {
     return (
       <View style={styles.container}>
