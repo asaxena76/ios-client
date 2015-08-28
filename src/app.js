@@ -103,7 +103,6 @@ module.exports = React.createClass({
   },
 
   handleLogout() {
-    console.log("foooo");
     this.resetStorage().done();
   }
 });
