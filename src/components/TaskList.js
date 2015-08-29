@@ -10,7 +10,8 @@ var {
   StyleSheet,
   Text,
   View,
-  TabBarIOS
+  TabBarIOS,
+  Image
 } = React;
 
 var request = require("superagent");
@@ -93,14 +94,13 @@ module.exports = React.createClass({
 
     return (
     	// insert tabbar here
-
       <TabBarIOS
-      	        tintColor="white"
-      	        barTintColor="darkslateblue">
+      	        tintColor="#128187"
+      	        barTintColor="#f2f2f2">
 
       	        <TabBarIOS.Item
+                  fontSize={20}
       	          title="Inbox"
-      	          icon={{uri: base64Icon, scale: 3}}
       	          selected={this.state.selectedTab === 'inbox'}
       	          onPress={() => {
       	            this.setState({
@@ -113,7 +113,6 @@ module.exports = React.createClass({
 
       			<TabBarIOS.Item
       	          title="All"
-      	          icon={{uri: base64Icon, scale: 3}}
       	          selected={this.state.selectedTab === 'all'}
       	          onPress={() => {
       	            this.setState({
@@ -142,11 +141,21 @@ module.exports = React.createClass({
   	   this.fetchInboxData()
     }
 
-  	return <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderTask}
-        style={styles.listView}
-      />
+    return (
+      <View>
+        <View style={{ flex: 1, alignItems: "center" }}>
+            <Image
+                style={{ width: 200 }}
+                resizeMode="contain"
+                source={ require("image!logo") } />
+        </View>
+        <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderTask}
+            style={styles.listView}
+          />
+      </View>
+    )
   },
 
   renderAll: function() {
@@ -155,11 +164,21 @@ module.exports = React.createClass({
   	   this.fetchData();
     }
 
-  	return <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderTask}
-        style={styles.listView}
-      />
+  	return (
+      <View>
+        <View style={{ flex: 1, alignItems: "center" }}>
+            <Image
+                style={{ width: 200 }}
+                resizeMode="contain"
+                source={ require("image!logo") } />
+        </View>
+        <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderTask}
+            style={styles.listView}
+          />
+      </View>
+    )
   },
 
   renderLoadingView: function() {
