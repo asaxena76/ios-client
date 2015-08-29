@@ -68,7 +68,7 @@ module.exports = React.createClass({
         var crendentials = this.refs.form.getValue();
 
         superagent
-            .post("http://localhost:8080/api/v1/users/login")
+            .post("https://ci.effektif.com/api/v1/users/login")
             .send(crendentials)
             .end((error, response) => {
                 if(error) {

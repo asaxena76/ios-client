@@ -9,7 +9,7 @@
     "eslint": "^1.2.1",
     "graphql": "^0.4.2",
     "react": "^0.14.0-beta3",
-    "react-native": "^0.9.0",
+    "react-native": "^0.10.0",
     "react-native-icons": "^0.3.6",
     "react-native-vector-icons": "^0.6.9",
     "react-relay": "^0.1.1",

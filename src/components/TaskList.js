@@ -39,7 +39,7 @@ module.exports = React.createClass({
 
   fetchData: function() {
     request
-      .get("http://localhost:8080/api/v1/effektif/tasks")
+      .get("https://ci.effektif.com/api/v1/effektif/tasks")
       .set("Authorization", this.props.token)
       .end((error, response) => {
         console.log(error, response);
@@ -97,4 +97,3 @@ var styles = StyleSheet.create({
     marginTop: 50
   },
 })
-

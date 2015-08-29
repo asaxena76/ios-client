@@ -52,7 +52,7 @@ module.exports = React.createClass({
         return (
             <Image
                 style={{ width: 42, height: 42 }}
-                source={{ uri: `http://localhost:8080/api/v1/effektif/users/${this.props.user.id}/picture?token=${this.context.token}` }} />
+                source={{ uri: `https://ci.effektif.com/api/v1/effektif/users/${this.props.user.id}/picture?token=${this.context.token}` }} />
         );
     }
 

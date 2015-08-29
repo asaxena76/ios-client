@@ -36,7 +36,7 @@ module.exports = React.createClass({
         }
 
         request
-            .get(`http://localhost:8080/api/v1/effektif/users/${this.props.assigneeId}`)
+            .get(`https://ci.effektif.com/api/v1/effektif/users/${this.props.assigneeId}`)
             .set("Authorization", this.context.token)
             .end((error, response) => {
                 console.log(error, response);
@@ -55,7 +55,7 @@ module.exports = React.createClass({
 
             <View style={styles.taskNameContainer}>
               { this.renderTitle() }
-              <Text style={styles.subtitle}>{this.props.case.name}</Text>
+              <Text style={styles.subtitle}>{this.props.caze.name}</Text>
             </View>
           </View>
         );
@@ -90,7 +90,7 @@ module.exports = React.createClass({
         if(!this.state.completed) {
 
             request
-                .post(`http://localhost:8080/api/v1/effektif/tasks/${this.props.id}/complete`)
+                .post(`https://ci.effektif.com/api/v1/effektif/tasks/${this.props.id}/complete`)
                 .set("Authorization", this.context.token)
                 .end((error, response) => {
                     console.log(error, response);
@@ -102,7 +102,7 @@ module.exports = React.createClass({
         } else {
 
             request
-                .post(`http://localhost:8080/api/v1/effektif/tasks/${this.props.id}/reopen`)
+                .post(`https://ci.effektif.com/api/v1/effektif/tasks/${this.props.id}/reopen`)
                 .set("Authorization", this.context.token)
                 .end((error, response) => {
                     console.log(error, response);

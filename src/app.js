@@ -117,11 +117,3 @@ module.exports = React.createClass({
     this.resetStorage().done();
   }
 });
-
-// module.exports =  Relay.createContainer(App, {
-
-//   fragments: {
-
-//   }
-
-// });
