@@ -50,6 +50,7 @@ module.exports = React.createClass({
         this.setState({
           dataSource: ds.cloneWithRows(response.body),
           loaded: true,
+          loadedTasks: true
         });
       });
 
@@ -64,7 +65,6 @@ module.exports = React.createClass({
         console.log(error, response);
         this.setState({
           dataSource: ds.cloneWithRows(response.body),
-          loaded: true,
           loadedTasks: true
         });
       });
@@ -77,7 +77,7 @@ module.exports = React.createClass({
       .get("https://ci.effektif.com/api/v1/effektif/tasks?involvement%5B%5D=assignedToMe&involvement%5B%5D=imaCandidate&involvement%5B%5D=iStarted&completed=false")
       .set("Authorization", this.props.token)
       .end((error, response) => {
-        console.log(error, response);
+        console.log('hallo', error, response);
         this.setState({
           dataSource: ds.cloneWithRows(response.body),
           loadedTasks: true
@@ -100,11 +100,11 @@ module.exports = React.createClass({
 
 	        <TabBarIOS.Item
 	          title="Inbox"
-	          icon={{uri: base64Icon, scale: 3}}
+	          icon={{uri: base64Icon, scale: 1}}
 	          selected={this.state.selectedTab === 'inbox'}
 	          onPress={() => {
 	            this.setState({
-                loaded: false,
+                loadedTasks: false,
 	              selectedTab: 'inbox',
 	            });
 	          }}>
@@ -113,11 +113,11 @@ module.exports = React.createClass({
 
 			<TabBarIOS.Item
 	          title="All"
-	          icon={{uri: base64Icon, scale: 3}}
+	          icon={{uri: base64Icon, scale: 1}}
 	          selected={this.state.selectedTab === 'all'}
 	          onPress={() => {
 	            this.setState({
-                loaded: false,
+                loadedTasks: false,
 	              selectedTab: 'all',
 	            });
 	          }}>
