@@ -94,39 +94,46 @@ module.exports = React.createClass({
     return (
     	// insert tabbar here
 
-    	<TabBarIOS
-	        tintColor="white"
-	        barTintColor="darkslateblue">
+      <TabBarIOS
+      	        tintColor="white"
+      	        barTintColor="darkslateblue">
 
-	        <TabBarIOS.Item
-	          title="Inbox"
-	          icon={{uri: base64Icon, scale: 1}}
-	          selected={this.state.selectedTab === 'inbox'}
-	          onPress={() => {
-	            this.setState({
-                loadedTasks: false,
-	              selectedTab: 'inbox',
-	            });
-	          }}>
-			  {this.renderInbox()}
-        	</TabBarIOS.Item>
+      	        <TabBarIOS.Item
+      	          title="Inbox"
+      	          icon={{uri: base64Icon, scale: 3}}
+      	          selected={this.state.selectedTab === 'inbox'}
+      	          onPress={() => {
+      	            this.setState({
+                      loadedTasks: false,
+      	              selectedTab: 'inbox',
+      	            });
+      	          }}>
+      			  {this.renderTasks()}
+              	</TabBarIOS.Item>
 
-			<TabBarIOS.Item
-	          title="All"
-	          icon={{uri: base64Icon, scale: 1}}
-	          selected={this.state.selectedTab === 'all'}
-	          onPress={() => {
-	            this.setState({
-                loadedTasks: false,
-	              selectedTab: 'all',
-	            });
-	          }}>
-			  {this.renderAll()}
-        	</TabBarIOS.Item>
-        </TabBarIOS>
-    	// end of tabbar stuff
+      			<TabBarIOS.Item
+      	          title="All"
+      	          icon={{uri: base64Icon, scale: 3}}
+      	          selected={this.state.selectedTab === 'all'}
+      	          onPress={() => {
+      	            this.setState({
+                      loadedTasks: false,
+      	              selectedTab: 'all',
+      	            });
+      	          }}>
+      			  {this.renderTasks()}
+              	</TabBarIOS.Item>
+              </TabBarIOS>
 
     );
+  },
+
+  renderTasks: function (){
+      if (this.state.selectedTab === 'all'){
+        return this.renderAll();
+      } else {
+        return this.renderInbox();
+      }
   },
 
   renderInbox: function() {
