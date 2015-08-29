@@ -1,5 +1,6 @@
 var React = require("react-native");
 var Relay = require("react-relay");
+var { Icon } = require('react-native-icons');
 
 var { Image, StyleSheet, Text, View } = React;
 
@@ -24,10 +25,12 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        if(this.props.user.color) {
-            return this.renderInitials();
+        if (!this.props.user){
+          return this.renderNoAssignedUser();
         }
-
+        else if(this.props.user.color) {
+          return this.renderInitials();
+        }
         return this.renderUserImage();
     },
 
@@ -48,6 +51,20 @@ module.exports = React.createClass({
         );
     },
 
+    renderNoAssignedUser: function (){
+      return (
+        <Icon
+            style={{
+              width: 42,
+              height: 42,
+              backgroundColor: '#e5e5e5' 
+            }}
+            name={ `fontawesome|user` }
+            size={ 15 }
+            color="#fff" />
+      );
+    },
+
     renderUserImage: function() {
         return (
             <Image
@@ -66,16 +83,3 @@ var styles = StyleSheet.create({
     'justifyContent': 'center'
   },
 })
-
-// module.exports = Relay.createContainer(Avatar, {
-
-//     fragments: {
-//         user: () => Relay.QL`
-//             fragment on User {
-//                 id,
-//                 color
-//             }
-//         `
-//     }
-
-// })

@@ -27,6 +27,7 @@
 		4AEB8E5D1B909FDF00331508 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4AEB8E5C1B909FDF00331508 /* FontAwesome.otf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		E186808F1B90C45300B99689 /* IconTabBarItem in Resources */ = {isa = PBXBuildFile; fileRef = E186808E1B90C45300B99689 /* IconTabBarItem */; };
+		E18680A11B9196FA00B99689 /* libReactNativeIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E18680A01B9196CC00B99689 /* libReactNativeIcons.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		E186809F1B9196CC00B99689 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E186809B1B9196CC00B99689 /* ReactNativeIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2F5A3EB81ACDBF8000439386;
+			remoteInfo = ReactNativeIcons;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +144,7 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		E186808E1B90C45300B99689 /* IconTabBarItem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IconTabBarItem; path = "../node_modules/react-native-icons/ios/ReactNativeIcons/IconTabBarItem"; sourceTree = "<group>"; };
+		E186809B1B9196CC00B99689 /* ReactNativeIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeIcons.xcodeproj; path = "../node_modules/react-native-icons/ios/ReactNativeIcons.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E18680A11B9196FA00B99689 /* libReactNativeIcons.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -301,6 +311,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				E186809B1B9196CC00B99689 /* ReactNativeIcons.xcodeproj */,
 				4AEB8E5C1B909FDF00331508 /* FontAwesome.otf */,
 				13B07FAE1A68108700A75B9A /* iosclient */,
 				00E356EF1AD99517003FC87E /* iosclientTests */,
@@ -316,6 +327,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* iosclient.app */,
 				00E356EE1AD99517003FC87E /* iosclientTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E186809C1B9196CC00B99689 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E18680A01B9196CC00B99689 /* libReactNativeIcons.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -428,6 +447,10 @@
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
+				{
+					ProductGroup = E186809C1B9196CC00B99689 /* Products */;
+					ProjectRef = E186809B1B9196CC00B99689 /* ReactNativeIcons.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -506,6 +529,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E18680A01B9196CC00B99689 /* libReactNativeIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativeIcons.a;
+			remoteRef = E186809F1B9196CC00B99689 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

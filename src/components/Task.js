@@ -115,10 +115,6 @@ module.exports = React.createClass({
     },
 
     renderAvatar: function() {
-        if(!this.state.assignee) {
-            return;
-        }
-
         return <Avatar user={ this.state.assignee } />;
     }
 
@@ -133,7 +129,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 10,
     marginBottom: 10,
-    backgroundColor: 'rgb(229,229,229)'
+    backgroundColor: '#f2f2f2'
   },
   checkBoxContainer: {
     backgroundColor: '#9cc8ca',
